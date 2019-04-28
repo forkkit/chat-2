@@ -26,13 +26,11 @@ function splash(_ref) {
 
   var div = (0, _vd2.default)('.splash', !iframe && (0, _vd2.default)('.logos', logo && (0, _vd2.default)('.logo.org'), (0, _vd2.default)('.logo.slack')), (0, _vd2.default)('p', 'Join ', (0, _vd2.default)('b', name),
   // mention single single-channel inline
-  channels && channels.length === 1 && (0, _vd2.default)('span', ' #', channels[0]), ' on Slack.'), (0, _vd2.default)('p.status', active ? [(0, _vd2.default)('b.active', active), ' users online now of ', (0, _vd2.default)('b.total', total), ' registered.'] : [(0, _vd2.default)('b.total', total), ' users are registered so far.']), (0, _vd2.default)('form id=invite', channels && (channels.length > 1
-  // channel selection when there are multiple
-  ? (0, _vd2.default)('select.form-item name=channel', channels.map(function (channel) {
+  channels && channels.length === 1 && (0, _vd2.default)('span', ' #', channels[0]), ' on Slack.'), (0, _vd2.default)('p.status', active ? [(0, _vd2.default)('b.active', active), ' users online now of ', (0, _vd2.default)('b.total', total), ' registered.'] : [(0, _vd2.default)('b.total', total), ' users are registered so far.']), (0, _vd2.default)('form id=invite', channels && (channels.length > 1 ? // channel selection when there are multiple
+  (0, _vd2.default)('select.form-item name=channel', channels.map(function (channel) {
     return (0, _vd2.default)('option', { value: channel, text: channel });
-  }))
-  // otherwise a fixed channel
-  : (0, _vd2.default)('input type=hidden name=channel', { value: channels[0] })), (0, _vd2.default)('input.form-item type=email name=email placeholder=you@domain.com ' + (!iframe ? 'autofocus' : '')), (0, _vd2.default)('br'), (0, _vd2.default)('div class="g-recaptcha" data-sitekey="' + gcaptcha_sitekey + '"'), coc && (0, _vd2.default)('.coc', (0, _vd2.default)('label', (0, _vd2.default)('input type=checkbox name=coc value=1'), 'I agree to the ', (0, _vd2.default)('a', { href: coc, target: '_blank' }, 'Code of Conduct'), '.')), (0, _vd2.default)('button.loading', 'Get my Invite')), (0, _vd2.default)('p.signin', 'or ', (0, _vd2.default)('a href=https://' + org + '.slack.com target=_top', 'sign in'), '.'), style({ logo: logo, active: active, large: large, iframe: iframe }),
+  })) : // otherwise a fixed channel
+  (0, _vd2.default)('input type=hidden name=channel', { value: channels[0] })), (0, _vd2.default)('input.form-item type=email name=email placeholder=you@domain.com ' + (!iframe ? 'autofocus' : '')), (0, _vd2.default)('br'), (0, _vd2.default)('div class="g-recaptcha" data-sitekey="' + gcaptcha_sitekey + '"'), coc && (0, _vd2.default)('.coc', (0, _vd2.default)('label', (0, _vd2.default)('input type=checkbox name=coc value=1'), 'I agree to the ', (0, _vd2.default)('a', { href: coc, target: '_blank' }, 'Code of Conduct'), '.')), (0, _vd2.default)('button.loading', 'Get my Invite')), (0, _vd2.default)('p.signin', 'or ', (0, _vd2.default)('a href=https://' + org + '.slack.com target=_top', 'sign in'), '.'), style({ logo: logo, active: active, large: large, iframe: iframe }),
   // xxx: single build
   (0, _vd2.default)('script', '\n      data = {};\n      data.path = ' + JSON.stringify(path) + ';\n    '), (0, _vd2.default)('script src=https://cdn.socket.io/socket.io-1.4.4.js'), (0, _vd2.default)('script src=' + path + 'assets/superagent.js'), (0, _vd2.default)('script src=' + path + 'assets/client.js'));
   return div;
@@ -50,33 +48,27 @@ function style() {
   var css = _vd2.default.style();
   css.add('html', {
     'font-size': large ? '14px' : '10px',
-    background: 'rgb(250, 251, 252)'
+    background: 'white'
   });
 
   css.add('.splash', {
-    'width': iframe ? '25rem' : '30rem',
-    'margin': iframe ? '0' : '20rem auto',
+    width: iframe ? '23.6rem' : '30rem',
+    margin: iframe ? '0' : '10vw auto',
     'text-align': 'center',
     'font-family': '"Helvetica Neue", Helvetica, Arial'
   });
 
   if (iframe) {
     css.add('body, html', {
-      'margin': '0',
-      'padding': '0',
-      'background': '#FAFAFA',
-      'overflow': 'hidden' // ff
+      margin: '0',
+      padding: '0',
+      background: 'white',
+      overflow: 'hidden' // ff
     });
 
     css.add('.splash', {
       'box-sizing': 'border-box',
-      'padding': '1rem'
-    });
-  }
-
-  if (!iframe) {
-    css.media('(max-width: 50rem)').add('.splash', {
-      'margin-top': '10rem'
+      padding: '1rem'
     });
   }
 
@@ -85,15 +77,15 @@ function style() {
   });
 
   css.add('.logos', {
-    'position': 'relative',
+    position: 'relative',
     'margin-bottom': '4rem'
   });
 
   if (!iframe) {
     css.add('.logo', {
-      'width': '4.8rem',
-      'height': '4.8rem',
-      'display': 'inline-block',
+      width: '4.8rem',
+      height: '4.8rem',
+      display: 'inline-block',
       'background-size': 'cover'
     });
 
@@ -106,14 +98,14 @@ function style() {
       var lp = 3; // logos separation in rem
 
       css.add('.logo.org::after', {
-        'position': 'absolute',
-        'display': 'block',
-        'content': '"+"',
-        'top': '1.5rem',
-        'left': '0',
-        'width': '30rem',
+        position: 'absolute',
+        display: 'block',
+        content: '"+"',
+        top: '1.5rem',
+        left: '0',
+        width: '30rem',
         'text-align': 'center',
-        'color': '#D6D6D6',
+        color: '#D6D6D6',
         'font-size': '1.5rem', // can't use rem in font shorthand IE9-10
         // http://codersblock.com/blog/font-shorthand-bug-in-ie10/
         'font-family': 'Helvetica Neue'
@@ -149,7 +141,7 @@ function style() {
   });
 
   css.add('.coc input', {
-    'appearance': 'none',
+    appearance: 'none',
     '-webkit-appearance': 'none',
     border: 'none',
     'vertical-align': 'middle',
@@ -182,7 +174,7 @@ function style() {
 
   css.add('p', {
     'font-size': iframe ? '1.2rem' : '1.5rem',
-    'margin': iframe ? '0 0 .5rem' : '.5rem 0'
+    margin: iframe ? '0 0 .5rem' : '.5rem 0'
   });
 
   if (iframe) {
@@ -192,31 +184,31 @@ function style() {
   }
 
   css.add('select', {
-    'background': 'none'
+    background: 'none'
   });
 
   css.add('button, .form-item', {
     'font-size': '1.2rem',
     'margin-top': iframe ? '.5rem' : '1rem',
     'vertical-align': 'middle',
-    'display': 'block',
+    display: 'block',
     'text-align': 'center',
     'box-sizing': 'border-box',
-    'width': '100%',
-    'padding': '.9rem'
+    width: '100%',
+    padding: '.9rem'
   });
 
   css.add('button', {
-    'color': '#fff',
+    color: '#fff',
     'font-weight': 'bold',
     'border-width': 0,
-    'background': pink,
+    background: pink,
     'text-transform': 'uppercase',
-    'cursor': 'pointer',
-    'appearence': 'none',
+    cursor: 'pointer',
+    appearence: 'none',
     '-webkit-appearence': 'none',
-    'outline': '0',
-    'transition': 'background-color 150ms ease-in, color 150ms ease-in'
+    outline: '0',
+    transition: 'background-color 150ms ease-in, color 150ms ease-in'
   });
 
   css.add('button.loading', {
@@ -224,9 +216,9 @@ function style() {
   });
 
   css.add('button:disabled', {
-    'color': '#9B9B9B',
+    color: '#9B9B9B',
     'background-color': '#D6D6D6',
-    'cursor': 'default',
+    cursor: 'default',
     'pointer-events': 'none'
   });
 
@@ -236,7 +228,7 @@ function style() {
   });
 
   css.add('button.success:disabled', {
-    'color': '#fff',
+    color: '#fff',
     'background-color': '#68C200'
   });
 
@@ -245,11 +237,11 @@ function style() {
   });
 
   css.add('b', {
-    'transition': 'transform 150ms ease-in'
+    transition: 'transform 150ms ease-in'
   });
 
   css.add('b.grow', {
-    'transform': 'scale(1.3)'
+    transform: 'scale(1.3)'
   });
 
   css.add('form', {
@@ -258,38 +250,38 @@ function style() {
   });
 
   css.add('input', {
-    'color': '#9B9B9B',
-    'border': '.1rem solid #D6D6D6'
+    color: '#9B9B9B',
+    border: '.1rem solid #D6D6D6'
   });
 
   if (iframe) {
     css.add('button, .form-item', {
-      'height': '2.8rem',
+      height: '2.8rem',
       'line-height': '2.8rem',
-      'padding': 0,
+      padding: 0,
       'font-size': '1.1rem'
     });
   }
 
   css.add('input:focus', {
-    'color': '#666',
+    color: '#666',
     'border-color': '#999',
-    'outline': '0'
+    outline: '0'
   });
 
   if (active) {
     css.add('.active', {
-      'color': pink
+      color: pink
     });
   }
 
   css.add('p.signin', {
-    'padding': '1rem 0 1rem',
+    padding: '1rem 0 1rem',
     'font-size': '1.1rem'
   });
 
   css.add('p.signin a', {
-    'color': pink,
+    color: pink,
     'text-decoration': 'none'
   });
 
@@ -300,28 +292,28 @@ function style() {
 
   if (!iframe) {
     css.add('footer', {
-      'color': '#D6D6D6',
+      color: '#D6D6D6',
       'font-size': '1.1rem',
-      'margin': '20rem auto 0',
-      'width': '30rem',
+      margin: '20rem auto 0',
+      width: '30rem',
       'text-align': 'center'
     });
 
     css.add('footer a', {
-      'color': '#9B9B9B',
+      color: '#9B9B9B',
       'text-decoration': 'none',
       'border-bottom': '.1rem solid #9B9B9B'
     });
 
     css.add('footer a:hover', {
-      'color': '#fff',
+      color: '#fff',
       'background-color': '#9B9B9B'
     });
   }
 
   if (iframe) {
     css.add('.g-recaptcha', {
-      'transform': 'scale(0.76)',
+      transform: large ? 'scale(1)' : 'scale(0.76)',
       'transform-origin': '0 0'
     });
   }
