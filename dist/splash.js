@@ -9,8 +9,6 @@ var _vd = require('vd');
 
 var _vd2 = _interopRequireDefault(_vd);
 
-var _path = require('path');
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function splash(_ref) {
@@ -32,7 +30,7 @@ function splash(_ref) {
   (0, _vd2.default)('select.form-item name=channel', channels.map(function (channel) {
     return (0, _vd2.default)('option', { value: channel, text: channel });
   })) : // otherwise a fixed channel
-  (0, _vd2.default)('input type=hidden name=channel', { value: channels[0] })), (0, _vd2.default)('input.form-item type=email name=email placeholder=you@domain.com ' + (!iframe ? 'autofocus' : '')), large && (0, _vd2.default)('br'), (0, _vd2.default)('div class="g-recaptcha" data-sitekey="' + gcaptcha_sitekey + '"'), coc && (0, _vd2.default)('.coc', (0, _vd2.default)('label', (0, _vd2.default)('input type=checkbox name=coc value=1'), 'I agree to the ', (0, _vd2.default)('a', { href: coc, target: '_blank' }, 'Code of Conduct'), '.')), (0, _vd2.default)('button.loading', 'Get my Invite')), (0, _vd2.default)('p.signin', 'or ', (0, _vd2.default)('a href=https://' + org + '.slack.com target=_top', 'sign in'), '.'), style({ logo: logo, active: active, large: large, iframe: iframe }),
+  (0, _vd2.default)('input type=hidden name=channel', { value: channels[0] })), (0, _vd2.default)('input.form-item type=email name=email placeholder=you@domain.com ' + (!iframe ? 'autofocus' : '')), large && iframe || !large & !iframe ? (0, _vd2.default)('br') : null, (0, _vd2.default)('div class="g-recaptcha" data-sitekey="' + gcaptcha_sitekey + '"'), coc && (0, _vd2.default)('.coc', (0, _vd2.default)('label', (0, _vd2.default)('input type=checkbox name=coc value=1'), 'I agree to the ', (0, _vd2.default)('a', { href: coc, target: '_blank' }, 'Code of Conduct'), '.')), (0, _vd2.default)('button.loading', 'Get my Invite')), (0, _vd2.default)('p.signin', 'or ', (0, _vd2.default)('a href=https://' + org + '.slack.com target=_top', 'sign in'), '.'), style({ logo: logo, active: active, large: large, iframe: iframe }),
   // xxx: single build
   (0, _vd2.default)('script', '\n      data = {};\n      data.path = ' + JSON.stringify(path) + ';\n    '), (0, _vd2.default)('script src=https://cdn.socket.io/socket.io-1.4.4.js'), (0, _vd2.default)('script src=' + path + 'assets/superagent.js'), (0, _vd2.default)('script src=' + path + 'assets/client.js'));
   return div;
