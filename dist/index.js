@@ -93,7 +93,7 @@ function slackin(_ref) {
     // convert to an array
     channels = channels.split(',').map(function (channel) {
       // sanitize channel name
-      if ('#' === channel[0]) return channel.substr(1);
+      if (channel[0] === '#') return channel.substr(1);
       return channel;
     });
   }
@@ -139,7 +139,18 @@ function slackin(_ref) {
         total = _slack$users.total;
 
     if (!name) return res.send(404);
-    var page = (0, _vd2.default)('html', (0, _vd2.default)('head', (0, _vd2.default)('title', 'Join ', name, ' on Slack!'), (0, _vd2.default)("script src=https://www.google.com/recaptcha/api.js"), (0, _vd2.default)('meta name=viewport content="width=device-width,initial-scale=1.0,minimum-scale=1.0,user-scalable=no"'), (0, _vd2.default)('link rel="shortcut icon" href=https://slack.global.ssl.fastly.net/272a/img/icons/favicon-32.png'), css && (0, _vd2.default)('link rel=stylesheet', { href: css })), (0, _splash2.default)({ coc: coc, path: path, css: css, name: name, org: org, logo: logo, channels: channels, active: active, total: total, gcaptcha_sitekey: gcaptcha_sitekey }));
+    var page = (0, _vd2.default)('html', (0, _vd2.default)('head', (0, _vd2.default)('title', 'Join ', name, ' on Slack!'), (0, _vd2.default)('script src=https://www.google.com/recaptcha/api.js'), (0, _vd2.default)('meta name=viewport content="width=device-width,initial-scale=1.0,minimum-scale=1.0,user-scalable=no"'), (0, _vd2.default)('link rel="shortcut icon" href=https://slack.global.ssl.fastly.net/272a/img/icons/favicon-32.png'), css && (0, _vd2.default)('link rel=stylesheet', { href: css })), (0, _splash2.default)({
+      coc: coc,
+      path: path,
+      css: css,
+      name: name,
+      org: org,
+      logo: logo,
+      channels: channels,
+      active: active,
+      total: total,
+      gcaptcha_sitekey: gcaptcha_sitekey
+    }));
     res.type('html');
     res.send(page.toHTML());
   });
@@ -200,12 +211,11 @@ function slackin(_ref) {
       return res.status(400).json({ msg: 'Your email is not on the accepted email list' });
     }
 
-    if (coc && '1' != req.body.coc) {
+    if (coc && req.body.coc != '1') {
       return res.status(400).json({ msg: 'Agreement to CoC is mandatory' });
     }
 
-    /////////////////////////////////////////////////////////////////////////
-
+    // / //////////////////////////////////////////////////////////////////////
 
     var captcha_data = {
       secret: gcaptcha_secret,
@@ -214,19 +224,19 @@ function slackin(_ref) {
     };
 
     var captcha_callback = function captcha_callback(err, resp) {
-
       if (err) {
         return res.status(400).send({ msg: err });
       } else {
-
         if (resp.body.success) {
-
           var _chanId = slack.channel ? slack.channel.id : null;
 
           (0, _slackInvite2.default)({ token: token, org: org, email: email, channel: _chanId }, function (err) {
             if (err) {
               if (err.message === 'Sending you to Slack...') {
-                return res.status(303).json({ msg: err.message, redirectUrl: 'https://' + org + '.slack.com' });
+                return res.status(303).json({
+                  msg: err.message,
+                  redirectUrl: 'https://' + org + '.slack.com'
+                });
               }
 
               return res.status(400).json({ msg: err.message });
@@ -235,9 +245,8 @@ function slackin(_ref) {
             res.status(200).json({ msg: 'WOOT. Check your email!' });
           });
         } else {
-
           if (err) {
-            return res.status(400).send({ msg: "Captcha check failed" });
+            return res.status(400).send({ msg: 'Captcha check failed' });
           }
         }
       }
@@ -265,7 +274,18 @@ function slackin(_ref) {
         total = _slack$users4.total;
 
     if (!name) return res.send(404);
-    var page = (0, _vd2.default)('html', (0, _vd2.default)("script src=https://www.google.com/recaptcha/api.js"), (0, _splash2.default)({ coc: coc, path: path, name: name, org: org, channels: channels, active: active, total: total, large: large, iframe: true, gcaptcha_sitekey: gcaptcha_sitekey }));
+    var page = (0, _vd2.default)('html', (0, _vd2.default)('script src=https://www.google.com/recaptcha/api.js'), (0, _splash2.default)({
+      coc: coc,
+      path: path,
+      name: name,
+      org: org,
+      channels: channels,
+      active: active,
+      total: total,
+      large: large,
+      iframe: true,
+      gcaptcha_sitekey: gcaptcha_sitekey
+    }));
     res.type('html');
     res.send(page.toHTML());
   });
